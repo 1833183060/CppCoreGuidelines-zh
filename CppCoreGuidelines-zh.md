@@ -719,3 +719,30 @@ By default use
 If no well-designed, well-documented, and well-supported library exists for an important domain,
 maybe you should design and implement it, and then use it.
 
+
+# <a name="S-interfaces"></a>I: 接口
+
+接口是程序两部分之间的契约。准确地说明对服务提供者和服务用户的期望是至关重要的。拥有良好的（易于理解、鼓励高效使用、不易出错、支持测试等）接口可能是代码组织最重要的一个方面。
+接口规则概要:
+
+* [I.1: 使接口明晰](#Ri-explicit)
+* [I.2: 避免非-`const` 全局变量](#Ri-global)
+* [I.3: 避免单例](#Ri-singleton)
+* [I.4: 使接口精确和强类型化](#Ri-typed)
+* [I.5:声明先决条件 (if any)](#Ri-pre)
+* [I.6: 优先使用`Expects()`表示先决条件](#Ri-expects)
+* [I.7:声明后置条件](#Ri-post)
+* [I.8: 优先使用 `Ensures()`表达后置条件](#Ri-ensures)
+* [I.9: 如果接口是模板，则使用概念记录其参数](#Ri-concepts)
+* [I.10: 使用异常来表示执行所需任务的失败](#Ri-except)
+* [I.11: 永远不要通过原始指针(`T*`)或引用(`T&`)转移所有权](#Ri-raw)
+* [I.12: 将一个不能为空的指针声明为`not_null`](#Ri-nullptr)
+* [I.13: 不要将数组作为单个指针传递](#Ri-array)
+* [I.22: 避免复杂的全局对象初始化](#Ri-global-init)
+* [I.23: 函数不要有太多参数](#Ri-nargs)
+* [I.24: 当改变参数顺序会改变意义时，避免使相同类型的参数相邻](#Ri-unrelated)
+* [I.25: 优先选择抽象类作为接口，而不是类层次结构](#Ri-abstract)
+* [I.26: 如果需要跨编译器的ABI，就使用C风格的子集](#Ri-abi)
+* [I.27: For stable library ABI, consider the Pimpl idiom](#Ri-pimpl)
+* [I.30: 封装违反规则的行为](#Ri-encapsulate)
+
