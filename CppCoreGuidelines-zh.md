@@ -746,3 +746,29 @@ maybe you should design and implement it, and then use it.
 * [I.27: For stable library ABI, consider the Pimpl idiom](#Ri-pimpl)
 * [I.30: 封装违反规则的行为](#Ri-encapsulate)
 
+**另请参阅**:
+
+* [F: Functions](#S-functions)
+* [C.concrete: Concrete types](#SS-concrete)
+* [C.hier: Class hierarchies](#SS-hier)
+* [C.over: Overloading and overloaded operators](#SS-overload)
+* [C.con: Containers and other resource handles](#SS-containers)
+* [E: Error handling](#S-errors)
+* [T: Templates and generic programming](#S-templates)
+
+### <a name="Ri-explicit"></a>I.1:使接口明晰
+
+##### 原因
+
+正确性。接口中没有说明的前提很容易被忽略，也很难测试。
+
+##### 反例
+
+通过全局 (命名空间作用域) 变量 (调用模式)控制函数的行为是不明确和容易引起混淆的。 例如:
+
+    int round(double d)
+    {
+        return (round_up) ? ceil(d) : d;    // don't: "invisible" dependency
+    }
+
+两次`round(7.2)`调用的含义可能会产生不同的结果，这对调用者来说并不明显。
