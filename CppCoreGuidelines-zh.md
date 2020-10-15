@@ -792,3 +792,32 @@ maybe you should design and implement it, and then use it.
 
 **Alternative formulation**: 接口应该是一个函数或一组函数。
 函数可以是函数模板，函数集可以是类或类模板。
+
+##### Enforcement
+
+* (Simple) 函数不应基于在命名空间范围内声明的变量值来做出控制流决策。
+* (Simple) 函数不应该对在命名空间范围内声明的变量执行写操作。
+
+### <a name="Ri-global"></a>I.2: 避免使用非常量全局变量
+
+##### 原因
+
+非常量全局变量隐藏依赖项，并使依赖项受到不可预测的更改的影响。
+
+##### 示例
+
+    struct Data {
+        // ... lots of stuff ...
+    } data;            // 非常量数据
+
+    void compute()     // 不可这样
+    {
+        // ... 使用 data ...
+    }
+
+    void output()     // 不可这样
+    {
+        // ... 使用 data ...
+    }
+
+还有谁会修改 `data`?
