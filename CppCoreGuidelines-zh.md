@@ -840,19 +840,18 @@ maybe you should design and implement it, and then use it.
 **Alternative**: 如果使用全局（通常是命名空间范围）数据来避免复制，请考虑通过常量对象引用传递数据。
 另一种解决方案是将数据定义为某个对象的状态，将操作定义为成员函数。
 
-**Warning**: 小心数据竞争: 如果一个线程可以访问非本地数据（或通过引用传递的数据），而另一个线程执行被调用方，则会出现数据竞争。
+**警告**: 小心数据竞争: 如果一个线程可以访问非本地数据（或通过引用传递的数据），而另一个线程执行被调用方，则会出现数据竞争。
 每个指向可变数据的指针或引用都是潜在的数据竞争来源。
 
-Using global pointers or references to access and change non-const, and otherwise non-global,
-data isn't a better alternative to non-const global variables since that doesn't solve the issues of hidden dependencies or potential race conditions.
+使用全局指针或引用来访问和更改非常量（或者非全局的）数据并不是比使用非常量全局变量更好的选择，因为这不能解决隐藏的依赖关系或潜在的竞争条件问题。
 
 ##### Note
 
-You cannot have a race condition on immutable data.
+不可变数据不可能有竞争条件
 
-**References**: See the [rules for calling functions](#SS-call).
+**参照**: See the [rules for calling functions](#SS-call).
 
 ##### Note
 
-The rule is "avoid", not "don't use." Of course there will be (rare) exceptions, such as `cin`, `cout`, and `cerr`.
+规则是“避免使用”，而不是“不使用”。当然就会有一些(罕见的)例外，比如 `cin`, `cout` 和 `cerr`。
 
