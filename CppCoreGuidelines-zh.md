@@ -821,3 +821,38 @@ maybe you should design and implement it, and then use it.
     }
 
 还有谁会修改 `data`?
+
+**警告**:全局对象的初始化不是完全有序的。
+如果使用全局对象，请使用常量初始化它。但请注意，即使对于常量对象，初始化顺序也可能是未定义的。
+
+##### Exception
+
+全局对象通常好于单例.
+
+##### Note
+
+全局常量很有用。
+
+##### Note
+
+针对全局变量的规则也适用于命名空间作用域的变量。
+
+**Alternative**: 如果使用全局（通常是命名空间范围）数据来避免复制，请考虑通过常量对象引用传递数据。
+另一种解决方案是将数据定义为某个对象的状态，将操作定义为成员函数。
+
+**Warning**: 小心数据竞争: 如果一个线程可以访问非本地数据（或通过引用传递的数据），而另一个线程执行被调用方，则会出现数据竞争。
+每个指向可变数据的指针或引用都是潜在的数据竞争来源。
+
+Using global pointers or references to access and change non-const, and otherwise non-global,
+data isn't a better alternative to non-const global variables since that doesn't solve the issues of hidden dependencies or potential race conditions.
+
+##### Note
+
+You cannot have a race condition on immutable data.
+
+**References**: See the [rules for calling functions](#SS-call).
+
+##### Note
+
+The rule is "avoid", not "don't use." Of course there will be (rare) exceptions, such as `cin`, `cout`, and `cerr`.
+
