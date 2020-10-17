@@ -930,9 +930,7 @@ Consider:
 
     void pass(void* data);    //弱的和受限的类型 void* 是不可靠的。
 
-Callers are unsure what types are allowed and if the data may
-be mutated as `const` is not specified. Note all pointer types
-implicitly convert to void*, so it is easy for callers to provide this value.
+调用者不能确定哪种类型被允许，也不确定是否有可以转化为`const`的数据没有被指出来。注意，所有的指针类型都可隐式转换为 void* 所以调用者很容易错误的提供这个值。
 
 The callee must `static_cast` data to an unverified type to use it.
 That is error-prone and verbose.
