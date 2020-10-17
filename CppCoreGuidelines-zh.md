@@ -916,3 +916,28 @@ maybe you should design and implement it, and then use it.
 * 寻找名字包含`singleton`的类。
 * 寻找只创建单个对象的类(通过计算对象个数或检查构造函数)。
 * 如果类X有一个public静态函数，该函数包含类类型为X的函数内静态变量，并返回对该变量的指针或引用，则禁止使用该函数。
+
+### <a name="Ri-typed"></a>I.4:使接口精确和强类型化
+
+##### 原因
+
+类型是最简单和最好的文档，由于其定义良好的含义，可以提高可读性，并且在编译时进行检查。
+而且，精确类型化的代码经常可以更好的优化。
+
+##### 反例
+
+Consider:
+
+    void pass(void* data);    //弱的和受限的类型 void* 是不可靠的。
+
+Callers are unsure what types are allowed and if the data may
+be mutated as `const` is not specified. Note all pointer types
+implicitly convert to void*, so it is easy for callers to provide this value.
+
+The callee must `static_cast` data to an unverified type to use it.
+That is error-prone and verbose.
+
+Only use `const void*` for passing in data in designs that are indescribable in C++. Consider using a `variant` or a pointer to base instead.
+
+**Alternative**: Often, a template parameter can eliminate the `void*` turning it into a `T*` or `T&`.
+For generic code these `T`s can be general or concept constrained template parameters.
