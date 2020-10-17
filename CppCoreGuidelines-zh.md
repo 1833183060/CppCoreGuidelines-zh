@@ -880,7 +880,7 @@ maybe you should design and implement it, and then use it.
 
 ##### Exception
 
-如果需要，你可以使用最简单的 "单例" (它是如此简单以至于通常不被认为是一个单例) to get initialization on first use, if any:
+如果需要，你可以使用最简单的 "单例" (它是如此简单以至于通常不被认为是一个单例)在第一次使用时进行初始化:
 
     X& myX()
     {
@@ -888,7 +888,7 @@ maybe you should design and implement it, and then use it.
         return my_x;
     }
 
-This is one of the most effective solutions to problems related to initialization order.
+这是解决初始化顺序相关问题的最有效的解决方案之一。
 In a multi-threaded environment, the initialization of the static object does not introduce a race condition
 (unless you carelessly access a shared object from within its constructor).
 
