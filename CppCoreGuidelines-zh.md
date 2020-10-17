@@ -889,13 +889,11 @@ maybe you should design and implement it, and then use it.
     }
 
 这是解决初始化顺序相关问题的最有效的解决方案之一。
-In a multi-threaded environment, the initialization of the static object does not introduce a race condition
-(unless you carelessly access a shared object from within its constructor).
+在多线程环境中，静态对象的初始化不会引入竞争条件（除非您不小心从其构造函数中访问共享对象）。
 
-Note that the initialization of a local `static` does not imply a race condition.
-However, if the destruction of `X` involves an operation that needs to be synchronized we must use a less simple solution.
-For example:
-
+注意，局部静态变量的初始化并不一定引发竞争条件。
+然而，如果`X`的销毁涉及需要同步的操作，我们必须使用一个不那么简单的解决方案。
+例如：
     X& myX()
     {
         static auto p = new X {3};
