@@ -897,15 +897,15 @@ maybe you should design and implement it, and then use it.
     X& myX()
     {
         static auto p = new X {3};
-        return *p;  // potential leak
+        return *p;  // 存在潜在的资源泄漏
     }
 
-Now someone must `delete` that object in some suitably thread-safe way.
-That's error-prone, so we don't use that technique unless
+现在必须有人以适当的线程安全的方式“删除”该对象。
+那是容易出错的，所以我们不使用那个技术，除非：
 
-* `myX` is in multi-threaded code,
-* that `X` object needs to be destroyed (e.g., because it releases a resource), and
-* `X`'s destructor's code needs to be synchronized.
+* `myX` 处于多线程代码中,
+* `X` 对象需要被销毁 (比如, 因为他释放了一个资源), 并且
+* `X`的析构函数需要被同步。
 
-If you, as many do, define a singleton as a class for which only one object is created, functions like `myX` are not singletons, and this useful technique is not an exception to the no-singleton rule.
+如果像许多人一样，将单例对象定义为只为其创建一个对象的类，那么像`myX`这样的函数就不是单例对象，而且这个有用的技术也不是"避免单例"规则的例外。
 
