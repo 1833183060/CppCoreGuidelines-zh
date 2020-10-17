@@ -854,4 +854,60 @@ maybe you should design and implement it, and then use it.
 ##### Note
 
 规则是“避免使用”，而不是“不使用”。当然就会有一些(罕见的)例外，比如 `cin`, `cout` 和 `cerr`。
+##### Enforcement
+
+(容易) 报告命名空间范围内声明的所有非常变量以及对非常量数据的全局指针/引用。
+
+### <a name="Ri-singleton"></a>I.3: 避免单例
+
+##### 原因
+
+单例基本上是伪装的复杂的全局对象。
+
+##### 示例
+
+    class Singleton {
+        // ... 若干代码，以确保只有一个单例对象被创建，
+	//它是正确初始化的，等等。
+    };
+
+单例思想有许多变体。
+这是问题的一部分。
+
+##### Note
+
+如果不希望全局对象被更改，就将其声明为`const` 或 `constexpr`。
+
+##### Exception
+
+如果需要，你可以使用最简单的 "单例" (它是如此简单以至于通常不被认为是一个单例) to get initialization on first use, if any:
+
+    X& myX()
+    {
+        static X my_x {3};
+        return my_x;
+    }
+
+This is one of the most effective solutions to problems related to initialization order.
+In a multi-threaded environment, the initialization of the static object does not introduce a race condition
+(unless you carelessly access a shared object from within its constructor).
+
+Note that the initialization of a local `static` does not imply a race condition.
+However, if the destruction of `X` involves an operation that needs to be synchronized we must use a less simple solution.
+For example:
+
+    X& myX()
+    {
+        static auto p = new X {3};
+        return *p;  // potential leak
+    }
+
+Now someone must `delete` that object in some suitably thread-safe way.
+That's error-prone, so we don't use that technique unless
+
+* `myX` is in multi-threaded code,
+* that `X` object needs to be destroyed (e.g., because it releases a resource), and
+* `X`'s destructor's code needs to be synchronized.
+
+If you, as many do, define a singleton as a class for which only one object is created, functions like `myX` are not singletons, and this useful technique is not an exception to the no-singleton rule.
 
