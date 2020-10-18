@@ -937,5 +937,4 @@ Consider:
 
 仅仅在那些无法用C++描述的设计中使用`const void*`来传递数据。考虑改用`variant`或指向base的指针。
 
-**Alternative**: Often, a template parameter can eliminate the `void*` turning it into a `T*` or `T&`.
-For generic code these `T`s can be general or concept constrained template parameters.
+**Alternative**: 通常，模板参数可以将`void*`转换为`T*`或`T&`,从而消除`void*`。对于泛型代码，这些`T`可以是通用或概念约束的模板参数。
