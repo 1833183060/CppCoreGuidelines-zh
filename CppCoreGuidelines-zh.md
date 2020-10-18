@@ -938,3 +938,24 @@ Consider:
 仅仅在那些无法用C++描述的设计中使用`const void*`来传递数据。考虑改用`variant`或指向base的指针。
 
 **Alternative**: 通常，模板参数可以将`void*`转换为`T*`或`T&`,从而消除`void*`。对于泛型代码，这些`T`可以是通用或概念约束的模板参数。
+
+##### 反例
+
+Consider:
+
+    draw_rect(100, 200, 100, 500); //这些数字代表什么?
+
+    draw_rect(p.x, p.y, 10, 20); //10和20的单位是什么?
+
+显然，调用者在描述一个矩形，但不清楚具体描述的是矩形的哪些参数。而且, `int`可以携带任意形式的信息, 包括许多单位的值, 所以我们必须猜测这四个 `int`的含义。或许, 前两个参数是 `x`,`y` 坐标, 那后两个呢?
+
+Comments and parameter names can help, but we could be explicit:
+
+    void draw_rectangle(Point top_left, Point bottom_right);
+    void draw_rectangle(Point top_left, Size height_width);
+
+    draw_rectangle(p, Point{10, 20});  // two corners
+    draw_rectangle(p, Size{10, 20});   // one corner and a (height, width) pair
+
+Obviously, we cannot catch all errors through the static type system
+(e.g., the fact that a first argument is supposed to be a top-left point is left to convention (naming and comments)).
