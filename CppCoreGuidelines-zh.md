@@ -932,10 +932,10 @@ Consider:
 
 调用者不能确定哪种类型被允许，也不确定是否有可以转化为`const`的数据没有被指出来。注意，所有的指针类型都可隐式转换为 void* 所以调用者很容易错误的提供这个值。
 
-The callee must `static_cast` data to an unverified type to use it.
-That is error-prone and verbose.
+被调用者必须通过`static_cast` 将`data`转化为未验证的类型后才能使用。
+这样容易出错，代码也太冗长。
 
-Only use `const void*` for passing in data in designs that are indescribable in C++. Consider using a `variant` or a pointer to base instead.
+仅仅在那些无法用C++描述的设计中使用`const void*`来传递数据。考虑改用`variant`或指向base的指针。
 
 **Alternative**: Often, a template parameter can eliminate the `void*` turning it into a `T*` or `T&`.
 For generic code these `T`s can be general or concept constrained template parameters.
