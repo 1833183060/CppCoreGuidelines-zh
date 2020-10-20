@@ -1110,3 +1110,31 @@ Consider:
 ##### Note
 
 不，使用`unsigned`不是回避[确保值非负]（#Res nonnegative）问题的好方法。
+
+##### Enforcement
+
+(不可实施)找到各种可以断言前提条件的方法是不可行的。对于那些容易识别的(`assert() `)的警告，在缺乏语言工具的情况下，其值是有问题的。
+
+### <a name="Ri-post"></a>I.7: 陈述后置条件
+
+##### 原因
+
+检测对结果的误解，并有可能捕获错误的实现。
+
+##### 反例
+
+请看:
+
+    int area(int height, int width) { return height * width; }  // 不好
+
+在这里，我们(不小心)省略了先决条件说明，因此“高度和宽度必须为正”这一点并不明确。
+我们还省略了后置条件规范，因此对于“大于最大整数的区域，算法(`height * width`)是错误的”这一点并不明显。溢出可能发生。
+考虑使用如下代码:
+
+    int area(int height, int width)
+    {
+        auto res = height * width;
+        Ensures(res > 0);
+        return res;
+    }
+
