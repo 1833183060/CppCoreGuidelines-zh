@@ -1138,3 +1138,34 @@ Consider:
         return res;
     }
 
+##### 反例
+
+考虑一个著名的安全漏洞:
+
+    void f()    // 有问题
+    {
+        char buffer[MAX];
+        // ...
+        memset(buffer, 0, sizeof(buffer));
+    }
+
+没有后置条件说明应该清除缓冲区，优化器消除了明显冗余的`memset()`调用:
+
+由于没有后置条件说明应清除缓冲区，因此优化器消除了明显冗余的`memset()` 调用:
+
+    void f()    // 更好
+    {
+        char buffer[MAX];
+        // ...
+        memset(buffer, 0, sizeof(buffer));
+        Ensures(buffer[0] == 0);
+    }
+
+##### Note
+
+后置条件通常非正式地在一个用于说明函数用途的注释中声明；可以使用'assures（）`使其更加系统化、可见和可检查。
+##### Note
+
+当后置条件与返回结果中没有直接反映的内容相关时，后置条件尤其重要，例如所使用的数据结构的状态。。
+
+
