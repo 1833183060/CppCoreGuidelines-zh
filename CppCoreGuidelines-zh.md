@@ -1010,3 +1010,27 @@ Consider:
     {
         blink_led(1500ms);
     }
+    
+该函数也可以这样写，它将接受任何时间持续单位。
+
+    template<class rep, class period>
+    void blink_led(duration<rep, period> time_to_blink) // 好 -- 接受任何单位
+    {
+        //假设 millisecond 是最小的单位
+        auto milliseconds_to_blink = duration_cast<milliseconds>(time_to_blink);
+        // ...
+        //用milliseconds_to_blink做点什么
+        // ...
+    }
+
+    void use()
+    {
+        blink_led(2s);
+        blink_led(1500ms);
+    }
+    
+##### Enforcement
+
+* (简单) 记录在参数或返回值中使用`void*` 的地方。
+* (简单) 记录使用一个以上 `bool` 参数的地方。
+* (很难做好) 查找使用太多原始类型参数的函数。
