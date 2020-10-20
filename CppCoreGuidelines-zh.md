@@ -729,7 +729,7 @@ maybe you should design and implement it, and then use it.
 * [I.2: 避免非-`const` 全局变量](#Ri-global)
 * [I.3: 避免单例](#Ri-singleton)
 * [I.4: 使接口精确和强类型化](#Ri-typed)
-* [I.5:声明先决条件 (if any)](#Ri-pre)
+* [I.5:	声明先决条件 (如果有的话)](#Ri-pre)
 * [I.6: 优先使用`Expects()`表示先决条件](#Ri-expects)
 * [I.7:声明后置条件](#Ri-post)
 * [I.8: 优先使用 `Ensures()`表达后置条件](#Ri-ensures)
@@ -1034,3 +1034,34 @@ Consider:
 * (简单) 记录在参数或返回值中使用`void*` 的地方。
 * (简单) 记录使用一个以上 `bool` 参数的地方。
 * (很难做好) 查找使用太多原始类型参数的函数。
+
+### <a name="Ri-pre"></a>I.5: 声明先决条件 (如果有的话)
+
+##### 原因
+
+Arguments have meaning that might constrain their proper use in the callee.
+
+##### 示例
+
+Consider:
+
+    double sqrt(double x);
+
+此处， `x`必须是非负的。 类型系统并不能（轻松自然的）表达这些, 因此我们必须使用其他方式。例如：
+
+    double sqrt(double x); // x 必须是非负的
+
+一些先决条件可以用断言表示。例如：
+
+    double sqrt(double x) { Expects(x >= 0); /* ... */ }
+
+理想情况下，`Expects（x>=0）`应该是`sqrt（）`接口的一部分，但这并不容易做到。现在，我们把它放在定义（函数体）中。
+
+**参考**: `Expects()` is described in [GSL](#S-gsl).
+
+##### Note
+
+Prefer a formal specification of requirements, such as `Expects(p);`.
+If that is infeasible, use English text in comments, such as `// the sequence [p:q) is ordered using <`.
+
+
