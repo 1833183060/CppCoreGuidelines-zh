@@ -1076,4 +1076,19 @@ Consider:
 
 **另请参见**: 传递指针的规则. ???
 
+### <a name="Ri-expects"></a>I.6: 优先使用 `Expects()`表达先决条件
+
+##### 原因
+
+清楚的表明所述条件是先决条件，并且使运用工具成为可能。
+
+##### 示例
+
+    int area(int height, int width)
+    {
+        Expects(height > 0 && width > 0);            // 好
+        if (height <= 0 || width <= 0) my_error();   // 不明确
+        // ...
+    }
+    
 
