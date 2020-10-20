@@ -1066,14 +1066,14 @@ Consider:
 
 ##### Note
 
-Most member functions have as a precondition that some class invariant holds.
-That invariant is established by a constructor and must be reestablished upon exit by every member function called from outside the class.
-We don't need to mention it for each member function.
+大多数成员函数都有一个由类不变量所拥有的先决条件。
+该不变量由构造函数建立，并且必须在退出时由类外部调用的每个成员函数重新建立。
+我们不需要为每个成员函数提及它。
 
 ##### Enforcement
 
 (Not enforceable)
 
-**See also**: The rules for passing pointers. ???
+**另请参见**: 传递指针的规则. ???
 
 
