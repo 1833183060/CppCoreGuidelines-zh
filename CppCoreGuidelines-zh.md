@@ -1057,11 +1057,23 @@ Consider:
 
 理想情况下，`Expects（x>=0）`应该是`sqrt（）`接口的一部分，但这并不容易做到。现在，我们把它放在定义（函数体）中。
 
-**参考**: `Expects()` is described in [GSL](#S-gsl).
+**参考**: `Expects()`在[GSL](#S-gsl)描述。
 
 ##### Note
 
-Prefer a formal specification of requirements, such as `Expects(p);`.
-If that is infeasible, use English text in comments, such as `// the sequence [p:q) is ordered using <`.
+优先使用正时的需求规范, 比如 `Expects(p);`.
+如果不可行，就在注释中使用文本表述, 比如 `// 序列 [p:q)按照  < 排序`.
+
+##### Note
+
+Most member functions have as a precondition that some class invariant holds.
+That invariant is established by a constructor and must be reestablished upon exit by every member function called from outside the class.
+We don't need to mention it for each member function.
+
+##### Enforcement
+
+(Not enforceable)
+
+**See also**: The rules for passing pointers. ???
 
 
