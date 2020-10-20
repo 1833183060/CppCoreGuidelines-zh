@@ -978,3 +978,35 @@ Consider:
 对于一组布尔值，考虑使用标志枚举；枚举是表示一组布尔值的模式。For the case of a set of boolean values consider using a flags enum; a pattern that expresses a set of boolean values.
 
     enable_lamp_options(lamp_option::on | lamp_option::animate_state_transitions);
+    
+##### 反例
+
+在下面的例子中，从接口上无法看清`time_to_blink`是什么意思：秒？毫秒？In the following example, it is not clear from the interface what `time_to_blink` means: Seconds? Milliseconds?
+
+    void blink_led(int time_to_blink) // 不好 -- 单位不明确
+    {
+        // ...
+        //用 time_to_blink 做点什么
+        // ...
+    }
+
+    void use()
+    {
+        blink_led(2);
+    }
+
+##### 正确的例子
+
+`std::chrono::duration`类型有助于使持续时间的单位明确.
+
+    void blink_led(milliseconds time_to_blink) // 好 -- 单位是明确的
+    {
+        // ...
+        // 用 time_to_blink 做点什么
+        // ...
+    }
+
+    void use()
+    {
+        blink_led(1500ms);
+    }
