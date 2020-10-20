@@ -949,13 +949,12 @@ Consider:
 
 显然，调用者在描述一个矩形，但不清楚具体描述的是矩形的哪些参数。而且, `int`可以携带任意形式的信息, 包括许多单位的值, 所以我们必须猜测这四个 `int`的含义。或许, 前两个参数是 `x`,`y` 坐标, 那后两个呢?
 
-Comments and parameter names can help, but we could be explicit:
+注释和参数名会有所帮助，但我们可以明确指出:Comments and parameter names can help, but we could be explicit:
 
     void draw_rectangle(Point top_left, Point bottom_right);
     void draw_rectangle(Point top_left, Size height_width);
 
-    draw_rectangle(p, Point{10, 20});  // two corners
-    draw_rectangle(p, Size{10, 20});   // one corner and a (height, width) pair
+    draw_rectangle(p, Point{10, 20});  // 两个角点
+    draw_rectangle(p, Size{10, 20});   // 一个角点 和 一个 (高, 宽) 对
 
-Obviously, we cannot catch all errors through the static type system
-(e.g., the fact that a first argument is supposed to be a top-left point is left to convention (naming and comments)).
+显然，我们不能通过静态类型系统捕获所有错误(例如，第一个参数应该是左上角点这一事实，这是按照惯例确定(命名和注释))。
