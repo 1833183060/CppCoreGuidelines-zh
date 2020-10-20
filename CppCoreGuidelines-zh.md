@@ -958,3 +958,23 @@ Consider:
     draw_rectangle(p, Size{10, 20});   // 一个角点 和 一个 (高, 宽) 对
 
 显然，我们不能通过静态类型系统捕获所有错误(例如，第一个参数应该是左上角点这一事实，这是按照惯例确定(命名和注释))。
+
+##### 反例
+
+考虑下面的代码:
+
+    set_settings(true, false, 42); //数字42表示什么意思?
+
+无法根据参数类型及其值判断指定了什么设置以及这些值的含义。
+
+下面的设计更明确、安全、易读：
+
+    alarm_settings s{};
+    s.enabled = true;
+    s.displayMode = alarm_settings::mode::spinning_light;
+    s.frequency = alarm_settings::every_10_seconds;
+    set_settings(s);
+
+对于一组布尔值，考虑使用标志枚举；枚举是表示一组布尔值的模式。For the case of a set of boolean values consider using a flags enum; a pattern that expresses a set of boolean values.
+
+    enable_lamp_options(lamp_option::on | lamp_option::animate_state_transitions);
