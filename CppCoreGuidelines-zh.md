@@ -1164,8 +1164,52 @@ Consider:
 ##### Note
 
 后置条件通常非正式地在一个用于说明函数用途的注释中声明；可以使用'assures（）`使其更加系统化、可见和可检查。
+
 ##### Note
 
 当后置条件与返回结果中没有直接反映的内容相关时，后置条件尤其重要，例如所使用的数据结构的状态。。
 
+
+##### Example
+
+Consider a function that manipulates a `Record`, using a `mutex` to avoid race conditions:
+
+    mutex m;
+
+    void manipulate(Record& r)    // don't
+    {
+        m.lock();
+        // ... no m.unlock() ...
+    }
+
+Here, we "forgot" to state that the `mutex` should be released, so we don't know if the failure to ensure release of the `mutex` was a bug or a feature.
+Stating the postcondition would have made it clear:
+
+    void manipulate(Record& r)    // postcondition: m is unlocked upon exit
+    {
+        m.lock();
+        // ... no m.unlock() ...
+    }
+
+The bug is now obvious (but only to a human reading comments).
+
+Better still, use [RAII](#Rr-raii) to ensure that the postcondition ("the lock must be released") is enforced in code:
+
+    void manipulate(Record& r)    // best
+    {
+        lock_guard<mutex> _ {m};
+        // ...
+    }
+
+
+在这里，我们“忘记了”说明应该释放`mutex`，因此我们不知道未能确保释放`mutex`是一个bug还是一个特性。说明后置条件可以使这点清晰化：
+
+
+    void manipulate(Record& r)    // postcondition: m 在退出时解锁
+    {
+        m.lock();
+        // ... 没有 m.unlock() ...
+    }
+
+这个bug现在已经很明显了(但只有读到评论的人才会发现)。
 
