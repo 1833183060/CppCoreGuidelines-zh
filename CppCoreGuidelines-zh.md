@@ -1194,9 +1194,9 @@ Consider:
 这个bug现在已经很明显了(但只有读到评论的人才会发现)。
 
 
-Better still, use [RAII](#Rr-raii) to ensure that the postcondition ("the lock must be released") is enforced in code:
+更好的做法是，使用[RAII](#Rr-raii)来确保后置条件(“锁必须被释放”)在代码中被强制执行：
 
-    void manipulate(Record& r)    // best
+    void manipulate(Record& r)    // 最好
     {
         lock_guard<mutex> _ {m};
         // ...
