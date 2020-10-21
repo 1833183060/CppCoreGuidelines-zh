@@ -1172,33 +1172,13 @@ Consider:
 
 ##### Example
 
-Consider a function that manipulates a `Record`, using a `mutex` to avoid race conditions:
-
+考虑一个操作`Record`的函数，其使用`mutex` 来避免竞争条件:
     mutex m;
 
-    void manipulate(Record& r)    // don't
+    void manipulate(Record& r)    // 不要这样
     {
         m.lock();
-        // ... no m.unlock() ...
-    }
-
-Here, we "forgot" to state that the `mutex` should be released, so we don't know if the failure to ensure release of the `mutex` was a bug or a feature.
-Stating the postcondition would have made it clear:
-
-    void manipulate(Record& r)    // postcondition: m is unlocked upon exit
-    {
-        m.lock();
-        // ... no m.unlock() ...
-    }
-
-The bug is now obvious (but only to a human reading comments).
-
-Better still, use [RAII](#Rr-raii) to ensure that the postcondition ("the lock must be released") is enforced in code:
-
-    void manipulate(Record& r)    // best
-    {
-        lock_guard<mutex> _ {m};
-        // ...
+        // ... 没有 m.unlock() ...
     }
 
 
@@ -1212,4 +1192,14 @@ Better still, use [RAII](#Rr-raii) to ensure that the postcondition ("the lock m
     }
 
 这个bug现在已经很明显了(但只有读到评论的人才会发现)。
+
+
+Better still, use [RAII](#Rr-raii) to ensure that the postcondition ("the lock must be released") is enforced in code:
+
+    void manipulate(Record& r)    // best
+    {
+        lock_guard<mutex> _ {m};
+        // ...
+    }
+
 
