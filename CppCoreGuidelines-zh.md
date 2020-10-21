@@ -1211,13 +1211,13 @@ Consider:
 (无法实施) 这是一条理念性指导方针，在一般情况下是不可能直接检查的。但许多工具链提供特定于某个领域的检查程序（如锁保持检查程序）。
 
 
-### <a name="Ri-ensures"></a>I.8: Prefer `Ensures()` for expressing postconditions
+### <a name="Ri-ensures"></a>I.8: 优先使用 `Ensures()` 表述后置条件
 
-##### Reason
+##### 原因
 
-To make it clear that the condition is a postcondition and to enable tool use.
+清楚的表明某个条件是先决条件，并且使运用工具成为可能。
 
-##### Example
+##### 例子
 
     void f()
     {
