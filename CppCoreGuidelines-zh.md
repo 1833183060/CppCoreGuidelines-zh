@@ -1202,4 +1202,29 @@ Consider:
         // ...
     }
 
+##### Note
+
+理想情况下，在接口/声明中声明后置条件，以便用户可以很容易地看到它们。
+但只有与用户相关的后置条件可以在接口中声明。 只与内部状态相关的后置条件属于定义/实现。
+##### Enforcement
+
+(无法实施) 这是一条理念性指导方针，在一般情况下是不可能直接检查的。但许多工具链提供特定于某个领域的检查程序（如锁保持检查程序）。
+
+
+### <a name="Ri-ensures"></a>I.8: Prefer `Ensures()` for expressing postconditions
+
+##### Reason
+
+To make it clear that the condition is a postcondition and to enable tool use.
+
+##### Example
+
+    void f()
+    {
+        char buffer[MAX];
+        // ...
+        memset(buffer, 0, MAX);
+        Ensures(buffer[0] == 0);
+    }
+
 
