@@ -1232,13 +1232,12 @@ Consider:
 后置条件可以用多种方式表述，包括注释, `if`-语句， 和 `assert()`.
 这使得它们很难与普通代码区分开来，难以更新，难以通过工具进行操作，并且可能具有错误的语义。
 
-**Alternative**: Postconditions of the form "this resource must be released" are best expressed by [RAII](#Rr-raii).
-
+**Alternative**:类似“必须释放此资源”形式的后置条件最好用[RAII]（#Rr RAII）表示。
 ##### Note
 
-Ideally, that `Ensures` should be part of the interface, but that's not easily done.
-For now, we place it in the definition (function body).
-Once language support becomes available (e.g., see the [contract proposal](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0380r1.pdf)) we will adopt the standard version of preconditions, postconditions, and assertions.
+理想情况下，`Ensures`应该是接口的一部分，但这并不容易做到。
+暂时我们将其放在定义中 (函数体).
+一旦语言支持可用 (比如, 见 [contract proposal](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0380r1.pdf)) 我们将采用前置条件、后置条件和断言的标准版本。
 
 ##### Enforcement
 
