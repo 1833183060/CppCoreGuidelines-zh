@@ -1163,7 +1163,7 @@ Consider:
 
 ##### Note
 
-后置条件通常非正式地在一个用于说明函数用途的注释中声明；可以使用'assures（）`使其更加系统化、可见和可检查。
+后置条件通常非正式地在一个用于说明函数用途的注释中声明；可以使用`assures（）`使其更加系统化、可见和可检查。
 
 ##### Note
 
@@ -1227,4 +1227,19 @@ Consider:
         Ensures(buffer[0] == 0);
     }
 
+##### Note
 
+后置条件可以用多种方式表述，包括注释, `if`-语句， 和 `assert()`.
+这使得它们很难与普通代码区分开来，难以更新，难以通过工具进行操作，并且可能具有错误的语义。
+
+**Alternative**: Postconditions of the form "this resource must be released" are best expressed by [RAII](#Rr-raii).
+
+##### Note
+
+Ideally, that `Ensures` should be part of the interface, but that's not easily done.
+For now, we place it in the definition (function body).
+Once language support becomes available (e.g., see the [contract proposal](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0380r1.pdf)) we will adopt the standard version of preconditions, postconditions, and assertions.
+
+##### Enforcement
+
+(Not enforceable) Finding the variety of ways postconditions can be asserted is not feasible. Warning about those that can be easily identified (`assert()`) has questionable value in the absence of a language facility.
