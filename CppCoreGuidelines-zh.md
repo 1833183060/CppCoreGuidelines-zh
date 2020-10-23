@@ -1241,4 +1241,22 @@ Consider:
 
 ##### Enforcement
 
-(Not enforceable) Finding the variety of ways postconditions can be asserted is not feasible. Warning about those that can be easily identified (`assert()`) has questionable value in the absence of a language facility.
+(无法实施)找到各种可以断言后置条件的方法是不可行的。对于那些容易识别的(`assert() `)的警告，在缺乏语言工具的情况下，其值是有问题的。
+
+### <a name="Ri-concepts"></a>I.9: 如果接口是模板，使用概念对其参数进行文档化。
+
+##### 原因
+
+使接口被精确指定，同时也使将来（不会太久）的编译时检查成为可能。
+
+##### 示例
+
+Use the C++20 style of requirements specification. For example:
+
+    template<typename Iter, typename Val>
+    // requires InputIterator<Iter> && EqualityComparable<ValueType<Iter>>, Val>
+    Iter find(Iter first, Iter last, Val v)
+    {
+        // ...
+    }
+    
