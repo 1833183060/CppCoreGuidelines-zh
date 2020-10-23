@@ -1251,7 +1251,7 @@ Consider:
 
 ##### 示例
 
-Use the C++20 style of requirements specification. For example:
+使用C++20的需求规范风格。例如:
 
     template<typename Iter, typename Val>
     // requires InputIterator<Iter> && EqualityComparable<ValueType<Iter>>, Val>
@@ -1260,3 +1260,27 @@ Use the C++20 style of requirements specification. For example:
         // ...
     }
     
+##### Note
+
+不久后 (自 C++20),去掉 `//`后，所有的编译器都将能检查`requires` 子句。
+ GCC 6.1及以后的版本支持概念（concept）。
+
+**See also**: [Generic programming](#SS-GP) and [concepts](#SS-concepts).
+
+##### Enforcement
+
+(还不能实施) 相关语言设施正在制定规范中。当语言设施可用时，如果任何非变量模板参数不受概念（在其声明中或在`requires`子句中提及）的约束，则发出警告。
+### <a name="Ri-except"></a>I.10: Use exceptions to signal a failure to perform a required task
+
+##### Reason
+
+It should not be possible to ignore an error because that could leave the system or a computation in an undefined (or unexpected) state.
+This is a major source of errors.
+
+##### Example
+
+    int printf(const char* ...);    // bad: return negative number if output fails
+
+    template<class F, class ...Args>
+    // good: throw system_error if unable to start the new thread
+    explicit thread(F&& f, Args&&... args);
