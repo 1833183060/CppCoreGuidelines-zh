@@ -1290,7 +1290,8 @@ Consider:
 什么是错误?
 
 一个错误意味着函数不能达到它所宣称的目的 (包括建立后置条件)。
-Calling code that ignores an error could lead to wrong results or undefined systems state.
-For example, not being able to connect to a remote server is not by itself an error:
-the server can refuse a connection for all kinds of reasons, so the natural thing is to return a result that the caller should always check.
-However, if failing to make a connection is considered an error, then a failure should throw an exception.
+调用忽略错误的代码可能会导致错误的结果或未定义的系统状态。
+例如，不能连接到远程服务器本身不是一个错误:
+服务器可以出于各种原因拒绝连接，因此很自然地返回一个调用者应该肯定会检查的结果。
+但是，如果不能连接被认为是错误，那么应该抛出异常。
+
