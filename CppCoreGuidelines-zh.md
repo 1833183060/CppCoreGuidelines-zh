@@ -1284,3 +1284,13 @@ Consider:
     template<class F, class ...Args>
     // 好: 如果启动新线程失败则抛出 system_error。
     explicit thread(F&& f, Args&&... args);
+
+##### Note
+
+什么是错误?
+
+一个错误意味着函数不能达到它所宣称的目的 (包括建立后置条件)。
+Calling code that ignores an error could lead to wrong results or undefined systems state.
+For example, not being able to connect to a remote server is not by itself an error:
+the server can refuse a connection for all kinds of reasons, so the natural thing is to return a result that the caller should always check.
+However, if failing to make a connection is considered an error, then a failure should throw an exception.
