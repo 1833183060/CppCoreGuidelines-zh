@@ -1270,17 +1270,17 @@ Consider:
 ##### Enforcement
 
 (还不能实施) 相关语言设施正在制定规范中。当语言设施可用时，如果任何非变量模板参数不受概念（在其声明中或在`requires`子句中提及）的约束，则发出警告。
-### <a name="Ri-except"></a>I.10: Use exceptions to signal a failure to perform a required task
+### <a name="Ri-except"></a>I.10: 使用异常来表示执行所需任务的失败
 
-##### Reason
+##### 原因
 
-It should not be possible to ignore an error because that could leave the system or a computation in an undefined (or unexpected) state.
-This is a major source of errors.
+不应该忽略错误，因为这可能会使系统或计算处于未定义（或意外）状态。
+这是错误的主要来源。
 
-##### Example
+##### 示例
 
-    int printf(const char* ...);    // bad: return negative number if output fails
+    int printf(const char* ...);    // 不好: 如果输出失败返回负数
 
     template<class F, class ...Args>
-    // good: throw system_error if unable to start the new thread
+    // 好: 如果启动新线程失败则抛出 system_error。
     explicit thread(F&& f, Args&&... args);
