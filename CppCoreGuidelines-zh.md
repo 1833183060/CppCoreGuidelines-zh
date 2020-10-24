@@ -1324,12 +1324,11 @@ Consider:
 
 我们不认为“性能”是不使用异常的合理的理由。
 
-* Often, explicit error checking and handling consume as much time and space as exception handling.
-* Often, cleaner code yields better performance with exceptions (simplifying the tracing of paths through the program and their optimization).
-* A good rule for performance critical code is to move checking outside the [critical](#Rper-critical) part of the code.
-* In the longer term, more regular code gets better optimized.
-* Always carefully [measure](#Rper-measure) before making performance claims.
-
+* 通常，显式错误检查和处理与异常处理一样消耗大量的时间和空间。
+* 通常，使用异常的更干净的代码会产生更好的性能（简化了对程序路径的跟踪和优化）。
+* 对于性能关键型代码，一个好的规则是将检查移到代码的[关键型]（#Rper critical）部分之外。
+* 从长远来看，代码越规范优化越好。
+* 在提出性能要求之前要仔细[权衡](#Rper-measure)。
 **See also**: [I.5](#Ri-pre) and [I.7](#Ri-post) for reporting precondition and postcondition violations.
 
 ##### Enforcement
