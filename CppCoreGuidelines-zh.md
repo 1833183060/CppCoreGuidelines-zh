@@ -1335,4 +1335,32 @@ Consider:
 
 * (无法实施) 这是一个无法直接检查的理念性指导方针。
 * 查找 `errno`.
-   
+
+### <a name="Ri-raw"></a>I.11: 永远不要通过原始指针 (`T*`)或参照 (`T&`)转移所有权
+
+##### 原因
+
+如果不确定是调用方还是被调用方拥有对象，就会发生泄漏或不成熟的析构。
+
+##### 示例
+
+Consider:
+
+    X* compute(args)    // 不能这样
+    {
+        X* res = new X{};
+        // ...
+        return res;
+    }
+
+谁来删除返回的 `X`? 如果`compute`返回一个引用，问题将更难发现。
+考虑按值返回结果(如果结果很大，请使用移动语义):
+
+    vector<double> compute(args)  // 好
+    {
+        vector<double> res(10000);
+        // ...
+        return res;
+    }
+
+
