@@ -1389,8 +1389,8 @@ Consider:
 
 **另见**: [参数传递](#Rf-conventional), [使用智能指针参数](#Rr-smartptrparam), 和 [值返回](#Rf-value-return).
 
-##### Enforcement
+##### 实施
 
-* (Simple) Warn on `delete` of a raw pointer that is not an `owner<T>`. Suggest use of standard-library resource handle or use of `owner<T>`.
-* (Simple) Warn on failure to either `reset` or explicitly `delete` an `owner` pointer on every code path.
-* (Simple) Warn if the return value of `new` or a function call with an `owner` return value is assigned to a raw pointer or non-`owner` reference.
+* (简单) 当 `delete`非`owner<T>` 型原始指针时发出警告。建议使用标准库资源句柄或使用 `owner<T>`。
+* (简单) 在每个代码路径上，`reset`或显式`delete`一个 `owner`指针失败时发出警告。
+* (简单) 如果将`new`的返回值或具有`owner`返回值的函数调用的返回值分配给原始指针或非`owner`引用，则发出警告。
