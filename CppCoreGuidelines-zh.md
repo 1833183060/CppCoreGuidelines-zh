@@ -1380,3 +1380,17 @@ Consider:
 也就是说，它的值必须被`delete`掉或传递给另一个所有者，正如这里的`return`所做的那样。
 
 类似地，`owner`也被用在资源句柄的实现中。
+
+##### Note
+
+作为原始指针（或迭代器）传递的每个对象都被假定为调用方所有，因此其生存期由调用方控制。 从另一个角度看:
+与指针传递API相比，所有权转移API相对较少，
+所以默认是“不转让所有权”。
+
+**另见**: [参数传递](#Rf-conventional), [使用智能指针参数](#Rr-smartptrparam), 和 [值返回](#Rf-value-return).
+
+##### Enforcement
+
+* (Simple) Warn on `delete` of a raw pointer that is not an `owner<T>`. Suggest use of standard-library resource handle or use of `owner<T>`.
+* (Simple) Warn on failure to either `reset` or explicitly `delete` an `owner` pointer on every code path.
+* (Simple) Warn if the return value of `new` or a function call with an `owner` return value is assigned to a raw pointer or non-`owner` reference.
