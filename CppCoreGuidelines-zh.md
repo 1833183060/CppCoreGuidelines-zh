@@ -1329,10 +1329,10 @@ Consider:
 * 对于性能关键型代码，一个好的规则是将检查移到代码的[关键型]（#Rper critical）部分之外。
 * 从长远来看，代码越规范优化越好。
 * 在提出性能要求之前要仔细[权衡](#Rper-measure)。
-**See also**: [I.5](#Ri-pre) and [I.7](#Ri-post) for reporting precondition and postcondition violations.
+**另请参见**: [I.5](#Ri-pre) 和 [I.7](#Ri-post) 关于违反前置和后置条件的条款。
 
-##### Enforcement
+##### 实施
 
-* (Not enforceable) This is a philosophical guideline that is infeasible to check directly.
-* Look for `errno`.
+* (无法实施) 这是一个无法直接检查的理念性指导方针。
+* 查找 `errno`.
    
