@@ -1394,3 +1394,26 @@ Consider:
 * (简单) 当 `delete`非`owner<T>` 型原始指针时发出警告。建议使用标准库资源句柄或使用 `owner<T>`。
 * (简单) 在每个代码路径上，`reset`或显式`delete`一个 `owner`指针失败时发出警告。
 * (简单) 如果将`new`的返回值或具有`owner`返回值的函数调用的返回值分配给原始指针或非`owner`引用，则发出警告。
+
+### <a name="Ri-nullptr"></a>I.12: 将不能为null的指针声明为`not_null`
+
+##### 原因
+
+以帮助避免解引用`nullptr'的错误。
+通过避免对`nullptr`进行过多检查来提高性能。
+
+##### 示例
+
+    int length(const char* p);            // 不清楚length(nullptr) 是否有效
+
+    length(nullptr);                      // 可以吗?
+
+    int length(not_null<const char*> p);  // 更好: 我们可以认为 p不会是 nullptr
+
+    int length(const char* p);            //我们必须认为 p 可能会是 nullptr
+
+通过在源代码中陈述意图，实现者和工具可以提供更好的诊断，比如通过静态分析发现某些类型的错误，以及执行优化，比如删除分支和null测试。
+
+##### Note
+
+`not_null` 被定义在 [指南支持库](#S-gsl)中。
