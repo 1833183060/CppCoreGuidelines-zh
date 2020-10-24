@@ -1320,4 +1320,20 @@ Consider:
     }
     // ... 使用 val ...
     
-    
+##### Note
+
+我们不认为“性能”是不使用异常的合理的理由。
+
+* Often, explicit error checking and handling consume as much time and space as exception handling.
+* Often, cleaner code yields better performance with exceptions (simplifying the tracing of paths through the program and their optimization).
+* A good rule for performance critical code is to move checking outside the [critical](#Rper-critical) part of the code.
+* In the longer term, more regular code gets better optimized.
+* Always carefully [measure](#Rper-measure) before making performance claims.
+
+**See also**: [I.5](#Ri-pre) and [I.7](#Ri-post) for reporting precondition and postcondition violations.
+
+##### Enforcement
+
+* (Not enforceable) This is a philosophical guideline that is infeasible to check directly.
+* Look for `errno`.
+   
