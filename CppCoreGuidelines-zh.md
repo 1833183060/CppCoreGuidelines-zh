@@ -1440,10 +1440,10 @@ Note:当然 `length()` 是伪装的 `std::strlen()` 。
 
 ##### 示例
 
-Consider:
+请看:
 
-    void copy_n(const T* p, T* q, int n); // copy from [p:p+n) to [q:q+n)
+    void copy_n(const T* p, T* q, int n); // 从 [p:p+n) 拷贝到 [q:q+n)
 
-What if there are fewer than `n` elements in the array pointed to by `q`? Then, we overwrite some probably unrelated memory.
-What if there are fewer than `n` elements in the array pointed to by `p`? Then, we read some probably unrelated memory.
-Either is undefined behavior and a potentially very nasty bug.
+如果`q`指向的数组的元素的个数小于 `n`会怎么样? 那样，可能会覆盖一些不相关的内存区域。
+如果`p`指向的数组的元素的个数小于 `n` 会怎么样? 我们可能会读取一些不相关的内存。
+以上任何一种情况都会导致未定义的行为，并可能发生严重的bug。
