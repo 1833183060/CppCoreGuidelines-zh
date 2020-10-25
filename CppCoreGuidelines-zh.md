@@ -1426,3 +1426,24 @@ Consider:
     int length(not_null<zstring> p);
 
 Note:当然 `length()` 是伪装的 `std::strlen()` 。
+
+##### Enforcement
+
+* (简单) ((基础)) 如果一个函数在其所有控制流路径上都检查指针参数是否为`nullptr` ,那么应该提醒此参数应该声明为 `not_null`。
+* (复杂) 如果一个以指针作为返回值的函数可以确保任何返回路径都不会返回 `nullptr` , 那么应提醒，返回值应该被声明为`not_null`。
+
+### <a name="Ri-array"></a>I.13: 不要将数组作为单个指针进行传递
+
+##### 原因
+
+ (指针, 尺寸)-风格的接口容易出错。另外，普通指针（指向数组）必须依赖某种约定，才能使调用方确定其大小 。
+
+##### 示例
+
+Consider:
+
+    void copy_n(const T* p, T* q, int n); // copy from [p:p+n) to [q:q+n)
+
+What if there are fewer than `n` elements in the array pointed to by `q`? Then, we overwrite some probably unrelated memory.
+What if there are fewer than `n` elements in the array pointed to by `p`? Then, we read some probably unrelated memory.
+Either is undefined behavior and a potentially very nasty bug.
