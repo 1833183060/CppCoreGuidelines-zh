@@ -1417,3 +1417,12 @@ Consider:
 ##### Note
 
 `not_null` 被定义在 [指南支持库](#S-gsl)中。
+
+##### Note
+
+指向`char`的指针指向C样式字符串（以零结尾的字符字符串）的假设仍然是隐含的，这可能会导致混淆和错误。优先使用`czstring`而不是`const char*`。
+    // we can assume that p cannot be nullptr
+    // we can assume that p points to a zero-terminated array of characters
+    int length(not_null<zstring> p);
+
+Note: `length()` is, of course, `std::strlen()` in disguise.
