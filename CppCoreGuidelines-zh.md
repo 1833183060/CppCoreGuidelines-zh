@@ -1421,8 +1421,8 @@ Consider:
 ##### Note
 
 指向`char`的指针指向C样式字符串（以零结尾的字符字符串）的假设仍然是隐含的，这可能会导致混淆和错误。优先使用`czstring`而不是`const char*`。
-    // we can assume that p cannot be nullptr
-    // we can assume that p points to a zero-terminated array of characters
+    // 我们可以认为 p 不可能是 nullptr
+    // 我们可以认为 p 指向以零结尾的字符数组。
     int length(not_null<zstring> p);
 
-Note: `length()` is, of course, `std::strlen()` in disguise.
+Note:当然 `length()` 是伪装的 `std::strlen()` 。
