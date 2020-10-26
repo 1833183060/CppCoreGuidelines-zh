@@ -1463,4 +1463,16 @@ Consider:
     // ...
     draw(arr, 10);
 将`10`作为参数`n`传递可能是一个错误：最常见的约定是假设范围是`[0:n)`，但这一点没有明确规定。更糟糕的是对`draw()`的调用完全编译通过了：有一个从数组到指针的隐式转换（数组衰退），然后又有一个从`Circle`到`Shape`的隐式转换。`draw()`无法安全地遍历该数组：它无法知道元素的个数。
-    
+
+**Alternative**: 使用一个支持类来确保元素的数量是正确的，并防止危险的隐式转换。例如:
+
+    void draw2(span<Circle>);
+    Circle arr[10];
+    // ...
+    draw2(span<Circle>(arr));  // 推断元素的个数
+    draw2(arr);    // 推断元素类型和数组大小
+
+    void draw3(span<Shape>);
+    draw3(arr);    // 错误: 不能将 Circle[10]转换为 span<Shape>
+
+This `draw2()` passes the same amount of information to `draw()`, but makes the fact that it is supposed to be a range of `Circle`s explicit. See ???.
