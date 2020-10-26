@@ -1486,3 +1486,23 @@ Consider:
 
 * (简单) ((Bounds)) Warn for any expression that would rely on implicit conversion of an array type to a pointer type. Allow exception for zstring/czstring pointer types.
 * (简单) ((Bounds)) Warn for any arithmetic operation on an expression of pointer type that results in a value of pointer type. Allow exception for zstring/czstring pointer types.
+
+### <a name="Ri-global-init"></a>I.22: 避免全局对象的复杂初始化
+
+##### 原因
+
+避免全局对象的复杂初始化。
+
+##### 示例
+
+    // file1.c
+
+    extern const X x;
+
+    const Y y = f(x);   // 读 x; 写 y
+
+    // file2.c
+
+    extern const Y y;
+
+    const X x = g(y);   // 读 y; 写 x
