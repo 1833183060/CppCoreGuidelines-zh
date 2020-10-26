@@ -1475,4 +1475,14 @@ Consider:
     void draw3(span<Shape>);
     draw3(arr);    // 错误: 不能将 Circle[10]转换为 span<Shape>
 
-This `draw2()` passes the same amount of information to `draw()`, but makes the fact that it is supposed to be a range of `Circle`s explicit. See ???.
+`draw2()`传递相同数量的信息给 `draw()`, but makes the fact that it is supposed to be a range of `Circle`s explicit. See ???.
+
+##### Exception
+
+使用 `zstring` 和 `czstring` 代替 C-风格, 以零结尾的字符串.
+但在执行此操作时，请使用[GSL]（#S-GSL）中的`std:：string_view`或`span<char>`来防止范围错误。
+
+##### Enforcement
+
+* (简单) ((Bounds)) Warn for any expression that would rely on implicit conversion of an array type to a pointer type. Allow exception for zstring/czstring pointer types.
+* (简单) ((Bounds)) Warn for any arithmetic operation on an expression of pointer type that results in a value of pointer type. Allow exception for zstring/czstring pointer types.
