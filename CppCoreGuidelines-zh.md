@@ -1538,3 +1538,35 @@ Consider:
 
 2. *违反 "一个函数, 一个职责."的原则*
    该函数正在尝试执行多项工作，可能应该被重构。
+
+##### 示例
+
+标准库函数 `merge()` 已经超出我们可以舒服的使用的极限:
+
+    template<class InputIterator1, class InputIterator2, class OutputIterator, class Compare>
+    OutputIterator merge(InputIterator1 first1, InputIterator1 last1,
+                         InputIterator2 first2, InputIterator2 last2,
+                         OutputIterator result, Compare comp);
+
+请注意，这是因为上面的问题1 -- 缺乏抽象. STL不是传递一个 range (抽象的), 而是传递迭代器对 (未封装的复合值)。
+
+Here, we have four template arguments and six function arguments.
+To simplify the most frequent and simplest uses, the comparison argument can be defaulted to `<`:
+
+    template<class InputIterator1, class InputIterator2, class OutputIterator>
+    OutputIterator merge(InputIterator1 first1, InputIterator1 last1,
+                         InputIterator2 first2, InputIterator2 last2,
+                         OutputIterator result);
+
+This doesn't reduce the total complexity, but it reduces the surface complexity presented to many users.
+To really reduce the number of arguments, we need to bundle the arguments into higher-level abstractions:
+
+    template<class InputRange1, class InputRange2, class OutputIterator>
+    OutputIterator merge(InputRange1 r1, InputRange2 r2, OutputIterator result);
+
+Grouping arguments into "bundles" is a general technique to reduce the number of arguments and to increase the opportunities for checking.
+
+Alternatively, we could use concepts (as defined by the ISO TS) to define the notion of three types that must be usable for merging:
+
+    Mergeable{In1, In2, Out}
+    OutputIterator merge(In1 r1, In2 r2, Out result);
