@@ -1550,15 +1550,15 @@ Consider:
 
 请注意，这是因为上面的问题1 -- 缺乏抽象. STL不是传递一个 range (抽象的), 而是传递迭代器对 (未封装的复合值)。
 
-Here, we have four template arguments and six function arguments.
-To simplify the most frequent and simplest uses, the comparison argument can be defaulted to `<`:
+这里，我们有四个模板参数和六个函数参数。
+为了简化最常见和最简单的用法，比较参数可以默认为`<`：
 
     template<class InputIterator1, class InputIterator2, class OutputIterator>
     OutputIterator merge(InputIterator1 first1, InputIterator1 last1,
                          InputIterator2 first2, InputIterator2 last2,
                          OutputIterator result);
 
-This doesn't reduce the total complexity, but it reduces the surface complexity presented to many users.
+这并没有降低总体复杂性，但它降低了呈现给许多用户的表面复杂性。
 To really reduce the number of arguments, we need to bundle the arguments into higher-level abstractions:
 
     template<class InputRange1, class InputRange2, class OutputIterator>
