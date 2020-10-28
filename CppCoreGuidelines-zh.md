@@ -1559,14 +1559,14 @@ Consider:
                          OutputIterator result);
 
 这并没有降低总体复杂性，但它降低了呈现给许多用户的表面复杂性。
-To really reduce the number of arguments, we need to bundle the arguments into higher-level abstractions:
+为了真正减少参数的数量，我们需要将参数绑定到更高级别的抽象中:
 
     template<class InputRange1, class InputRange2, class OutputIterator>
     OutputIterator merge(InputRange1 r1, InputRange2 r2, OutputIterator result);
 
-Grouping arguments into "bundles" is a general technique to reduce the number of arguments and to increase the opportunities for checking.
+将参数分组为“包”是一种减少参数数量和增加检查机会的通用技术。
 
-Alternatively, we could use concepts (as defined by the ISO TS) to define the notion of three types that must be usable for merging:
+或者，我们可以使用概念（由ISO TS定义）来定义必须用于合并的三种类型的概念：
 
     Mergeable{In1, In2, Out}
     OutputIterator merge(In1 r1, In2 r2, Out result);
