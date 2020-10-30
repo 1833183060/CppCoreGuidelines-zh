@@ -1597,3 +1597,19 @@ Consider:
 
 * 当函数声明两个相同类型的迭代器 (包括指针)而不是 一个`range` 或一个 `view`。
 * (无法实施) 这是一条无法直接检验的理念性指导原则。
+
+##### Alternative
+
+定义一个`struct`作为参数类型，并相应地命名这些参数的字段:
+    struct SystemParams {
+        string config_file;
+        string output_path;
+        seconds timeout;
+    };
+    void initialize(SystemParams p);
+
+这有助于使将来的读者清楚地了解这一点, 因为通常参数是在调用位置按照名称进行填充。
+
+##### Enforcement
+
+(简单) 如果两个相邻参数拥有同一类型，则发出警告。
