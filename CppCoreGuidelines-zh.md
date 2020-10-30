@@ -1613,3 +1613,38 @@ Consider:
 ##### Enforcement
 
 (简单) 如果两个相邻参数拥有同一类型，则发出警告。
+
+### <a name="Ri-abstract"></a>I.25: 选择抽象类作为接口，而不是类层次结构
+
+##### 原因
+
+抽象类比带有状态的基类更稳定。
+
+##### 反例
+
+你只知道 `Shape` 会出现于某处 :-)
+
+    class Shape {  // 糟糕: 载有数据的接口类
+    public:
+        Point center() const { return c; }
+        virtual void draw() const;
+        virtual void rotate(int);
+        // ...
+    private:
+        Point c;
+        vector<Point> outline;
+        Color col;
+    };
+
+这样就强制每个派生类计算一个中心--即使 that's non-trivial 并且这个中心从没被使用.相似的, 不是每个 `Shape`都有 `Color`,许多`Shape`在没有轮廓（定义为 `Point`序列）的情况下可以获得最佳表达。抽象类就是用来阻止用户写下上面那样的类：
+
+    class Shape {    // 更好: Shape 是一个纯粹的接口
+    public:
+        virtual Point center() const = 0;   // 纯虚函数
+        virtual void draw() const = 0;
+        virtual void rotate(int) = 0;
+        // ...
+        // ... 没有数据成员 ...
+        // ...
+        virtual ~Shape() = default;
+    };
