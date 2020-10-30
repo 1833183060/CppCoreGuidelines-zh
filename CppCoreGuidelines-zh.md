@@ -1570,3 +1570,29 @@ Consider:
 
     Mergeable{In1, In2, Out}
     OutputIterator merge(In1 r1, In2 r2, Out result);
+
+##### 示例
+
+安全配置文件建议，将
+
+    void f(int* some_ints, int some_ints_length);  // 糟糕: C 风格, 不安全
+
+替换为
+
+    void f(gsl::span<int> some_ints);              // 好: 安全, 做了边界检查
+
+以上, 使用抽象具有安全性和健壮性的优点，而且自然也减少了参数的数量。
+
+##### Note
+
+有多少参数太多？尽量使用少于四（4）个参数。
+有些函数用四个单独的参数可以得到最佳表达，反而不算很多。
+
+**Alternative**: Use better abstraction: Group arguments into meaningful objects and pass the objects (by value or by reference).
+
+**Alternative**: Use default arguments or overloads to allow the most common forms of calls to be done with fewer arguments.
+
+##### Enforcement
+
+* Warn when a function declares two iterators (including pointers) of the same type instead of a range or a view.
+* (Not enforceable) This is a philosophical guideline that is infeasible to check directly.
