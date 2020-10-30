@@ -1588,11 +1588,12 @@ Consider:
 有多少参数太多？尽量使用少于四（4）个参数。
 有些函数用四个单独的参数可以得到最佳表达，反而不算很多。
 
-**Alternative**: Use better abstraction: Group arguments into meaningful objects and pass the objects (by value or by reference).
+**可选方案**: 使用更好的抽象：将参数分组到有意义的对象中，并传递对象（按值或按引用）。
+**可选方案**: 使用默认参数或重载允许用较少的参数完成最常见形式的调用。
 
-**Alternative**: Use default arguments or overloads to allow the most common forms of calls to be done with fewer arguments.
 
-##### Enforcement
 
-* Warn when a function declares two iterators (including pointers) of the same type instead of a range or a view.
-* (Not enforceable) This is a philosophical guideline that is infeasible to check directly.
+##### 实施
+
+* 当函数声明两个相同类型的迭代器 (包括指针)而不是 一个`range` 或一个 `view`。
+* (无法实施) 这是一条无法直接检验的理念性指导原则。
