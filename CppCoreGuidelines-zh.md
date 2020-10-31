@@ -1670,8 +1670,40 @@ Consider:
 
 (不可实施) 很难可靠地识别接口在哪里构成了ABI的一部分。
 
-### <a name="Ri-pimpl"></a>I.27: For stable library ABI, consider the Pimpl idiom
+### <a name="Ri-pimpl"></a>I.27: 对于稳定的库ABI,考虑使用Pimpl方式
 
 ##### 原因
 
 因为私有数据成员参与类布局，而私有成员函数参与重载解析，所以修改这些实现细节后，需要重新编译使用它们的类的所有代码。一个包含实现(Pimpl)指针的非多态接口类，可以以间接寻址为代价将类的用户与实现中的更改隔离开来。
+
+##### Example
+
+接口 (widget.h)
+
+    class widget {
+        class impl;
+        std::unique_ptr<impl> pimpl;
+    public:
+        void draw(); // 将会被转发给实现的公开API
+        widget(int); // 在实现文件中定义
+        ~widget();   // 在实现文件中定义，其中impl是一个完整的类型
+        widget(widget&&); // 定义在实现文件中
+        widget(const widget&) = delete;
+        widget& operator=(widget&&); // 定义在实现文件中
+        widget& operator=(const widget&) = delete;
+    };
+
+
+实现 (widget.cpp)
+
+    class widget::impl {
+        int n; // 私有数据
+    public:
+        void draw(const widget& w) { /* ... */ }
+        impl(int n) : n(n) {}
+    };
+    void widget::draw() { pimpl->draw(*this); }
+    widget::widget(int n) : pimpl{std::make_unique<impl>(n)} {}
+    widget::widget(widget&&) = default;
+    widget::~widget() = default;
+    widget& widget::operator=(widget&&) = default;
