@@ -1668,12 +1668,10 @@ Consider:
 
 ##### Enforcement
 
-(不可实施) It is difficult to reliably identify where an interface forms part of an ABI.
+(不可实施) 很难可靠地识别接口在哪里构成了ABI的一部分。
 
 ### <a name="Ri-pimpl"></a>I.27: For stable library ABI, consider the Pimpl idiom
 
-##### Reason
+##### 原因
 
-Because private data members participate in class layout and private member functions participate in overload resolution, changes to those
-implementation details require recompilation of all users of a class that uses them. A non-polymorphic interface class holding a pointer to
-implementation (Pimpl) can isolate the users of a class from changes in its implementation at the cost of an indirection.
+因为私有数据成员参与类布局，而私有成员函数参与重载解析，所以修改这些实现细节后，需要重新编译使用它们的类的所有代码。一个包含实现(Pimpl)指针的非多态接口类，可以以间接寻址为代价将类的用户与实现中的更改隔离开来。
