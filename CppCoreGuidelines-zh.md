@@ -1707,3 +1707,18 @@ Consider:
     widget::widget(widget&&) = default;
     widget::~widget() = default;
     widget& widget::operator=(widget&&) = default;
+##### Notes
+
+有关这种风格的利弊权衡和另外的实现细节请参见 [GOTW #100](https://herbsutter.com/gotw/_100/) 和 [cppreference](http://en.cppreference.com/w/cpp/language/pimpl)。
+
+##### 实施
+
+(不可实施) 很难可靠地识别接口在哪部分构成了ABI的一部分。
+
+### <a name="Ri-encapsulate"></a>I.30: 封锁违反规则的行为
+
+##### 原因
+
+为了使代码简单、安全。
+有时，由于逻辑或性能原因，使用丑陋、不安全或容易出错的技术是必要的。如果是这样的话，就把它们局限在局部，而不能“感染”接口，这样更多的程序员群体必须熟悉实现细节。
+如果可能的话，实现的复杂性应该不会通过接口泄漏到用户代码中。
