@@ -1725,9 +1725,8 @@ Consider:
 
 ##### 示例
 
-Consider a program that, depending on some form of input (e.g., arguments to `main`), should consume input
-from a file, from the command line, or from standard input.
-We might write
+考虑这样一个程序，根据某个输入（例如，`main`的参数），决定应该使用文件、命令行还是标准输入获取输入数据。
+我们可以这样写
 
     bool owned;
     owner<istream*> inp;
@@ -1738,10 +1737,11 @@ We might write
     }
     istream& in = *inp;
 
-This violated the rule [against uninitialized variables](#Res-always),
-the rule against [ignoring ownership](#Ri-raw),
-and the rule [against magic constants](#Res-magic).
-In particular, someone has to remember to somewhere write
+这违反了：
+规则 [against uninitialized variables](#Res-always),
+规则 against [ignoring ownership](#Ri-raw),
+和规则 [against magic constants](#Res-magic).
+特别是，必须记住在某处写上：
 
     if (owned) delete inp;
 
@@ -1752,3 +1752,4 @@ at run time.
 The common, most frequent, and safest examples can be handled statically, so we don't want to add cost and complexity to those.
 But we must also cope with the uncommon, less-safe, and necessarily more expensive cases.
 Such examples are discussed in [[Str15]](http://www.stroustrup.com/resource-model.pdf).
+
