@@ -1722,3 +1722,33 @@ Consider:
 为了使代码简单、安全。
 有时，由于逻辑或性能原因，使用丑陋、不安全或容易出错的技术是必要的。如果是这样的话，就把它们局限在局部，而不能“感染”接口，这样更多的程序员群体必须熟悉实现细节。
 如果可能的话，实现的复杂性应该不会通过接口泄漏到用户代码中。
+
+##### 示例
+
+Consider a program that, depending on some form of input (e.g., arguments to `main`), should consume input
+from a file, from the command line, or from standard input.
+We might write
+
+    bool owned;
+    owner<istream*> inp;
+    switch (source) {
+    case std_in:        owned = false; inp = &cin;                       break;
+    case command_line:  owned = true;  inp = new istringstream{argv[2]}; break;
+    case file:          owned = true;  inp = new ifstream{argv[2]};      break;
+    }
+    istream& in = *inp;
+
+This violated the rule [against uninitialized variables](#Res-always),
+the rule against [ignoring ownership](#Ri-raw),
+and the rule [against magic constants](#Res-magic).
+In particular, someone has to remember to somewhere write
+
+    if (owned) delete inp;
+
+We could handle this particular example by using `unique_ptr` with a special deleter that does nothing for `cin`,
+but that's complicated for novices (who can easily encounter this problem) and the example is an example of a more general
+problem where a property that we would like to consider static (here, ownership) needs infrequently be addressed
+at run time.
+The common, most frequent, and safest examples can be handled statically, so we don't want to add cost and complexity to those.
+But we must also cope with the uncommon, less-safe, and necessarily more expensive cases.
+Such examples are discussed in [[Str15]](http://www.stroustrup.com/resource-model.pdf).
