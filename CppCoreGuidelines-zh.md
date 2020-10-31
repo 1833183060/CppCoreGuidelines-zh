@@ -1648,3 +1648,32 @@ Consider:
         // ...
         virtual ~Shape() = default;
     };
+##### Enforcement
+
+(简单) 如果指向类`C`的指针/引用赋值给指向`C`的基类的指针/引用，并且基类包含数据成员，则发出警告。
+
+### <a name="Ri-abi"></a>I.26: 如果需要跨编译器ABI，请使用c样式的子集
+
+##### 原因
+
+不同的编译器在类的二进制布局，异常处理，函数命名和其他实现细节方面有不同的实现。
+
+##### 例外
+
+某些平台上具有有通用ABI，这样使你不必受严格限制的约束。
+
+##### Note
+
+如果只使用一种编译器，则可以在接口中完全使用c++。编译器升级到新的版本后可能需要重新编译。
+
+##### Enforcement
+
+(不可实施) It is difficult to reliably identify where an interface forms part of an ABI.
+
+### <a name="Ri-pimpl"></a>I.27: For stable library ABI, consider the Pimpl idiom
+
+##### Reason
+
+Because private data members participate in class layout and private member functions participate in overload resolution, changes to those
+implementation details require recompilation of all users of a class that uses them. A non-polymorphic interface class holding a pointer to
+implementation (Pimpl) can isolate the users of a class from changes in its implementation at the cost of an indirection.
