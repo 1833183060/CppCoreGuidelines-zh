@@ -1751,3 +1751,58 @@ Consider:
 但我们还必须应对不常见的、不安全的、也必然更昂贵的情况。
 这些例子在 [[Str15]](http://www.stroustrup.com/resource-model.pdf)中有讨论。
 
+因此，我们写了一个类
+
+    class Istream { [[gsl::suppress(lifetime)]]
+    public:
+        enum Opt { from_line = 1 };
+        Istream() { }
+        Istream(zstring p) : owned{true}, inp{new ifstream{p}} {}            // 从文件读取
+        Istream(zstring p, Opt) : owned{true}, inp{new istringstream{p}} {}  // 从命令行读取
+        ~Istream() { if (owned) delete inp; }
+        operator istream&() { return *inp; }
+    private:
+        bool owned = false;
+        istream* inp = &cin;
+    };
+
+现在，`istream` 的所有权的动态特性被封装了起来。
+可能, 在实际代码中会添加一些检查潜在错误的内容。
+##### Enforcement
+
+* 困难, 很难决定什么样的违反规则的代码是必要的。
+* 对引起违规行为跨越接口的规则抑制进行标记。
+
+# <a name="S-functions"></a>F: Functions
+
+A function specifies an action or a computation that takes the system from one consistent state to the next. It is the fundamental building block of programs.
+
+It should be possible to name a function meaningfully, to specify the requirements of its argument, and clearly state the relationship between the arguments and the result. An implementation is not a specification. Try to think about what a function does as well as about how it does it.
+Functions are the most critical part in most interfaces, so see the interface rules.
+
+Function rule summary:
+
+Function definition rules:
+
+* [F.1: "Package" meaningful operations as carefully named functions](#Rf-package)
+* [F.2: A function should perform a single logical operation](#Rf-logical)
+* [F.3: Keep functions short and simple](#Rf-single)
+* [F.4: If a function might have to be evaluated at compile time, declare it `constexpr`](#Rf-constexpr)
+* [F.5: If a function is very small and time-critical, declare it inline](#Rf-inline)
+* [F.6: If your function might not throw, declare it `noexcept`](#Rf-noexcept)
+* [F.7: For general use, take `T*` or `T&` arguments rather than smart pointers](#Rf-smart)
+* [F.8: Prefer pure functions](#Rf-pure)
+* [F.9: Unused parameters should be unnamed](#Rf-unused)
+
+Parameter passing expression rules:
+
+* [F.15: Prefer simple and conventional ways of passing information](#Rf-conventional)
+* [F.16: For "in" parameters, pass cheaply-copied types by value and others by reference to `const`](#Rf-in)
+* [F.17: For "in-out" parameters, pass by reference to non-`const`](#Rf-inout)
+* [F.18: For "will-move-from" parameters, pass by `X&&` and `std::move` the parameter](#Rf-consume)
+* [F.19: For "forward" parameters, pass by `TP&&` and only `std::forward` the parameter](#Rf-forward)
+* [F.20: For "out" output values, prefer return values to output parameters](#Rf-out)
+* [F.21: To return multiple "out" values, prefer returning a struct or tuple](#Rf-out-multi)
+* [F.60: Prefer `T*` over `T&` when "no argument" is a valid option](#Rf-ptr-ref)
+
+
