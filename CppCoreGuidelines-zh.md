@@ -1773,18 +1773,18 @@ Consider:
 * 困难, 很难决定什么样的违反规则的代码是必要的。
 * 对引起违规行为跨越接口的规则抑制进行标记。
 
-# <a name="S-functions"></a>F: Functions
+# <a name="S-functions"></a>F: 函数
 
-A function specifies an action or a computation that takes the system from one consistent state to the next. It is the fundamental building block of programs.
+函数指定了将系统从一个一致状态带到下一个一致状态的操作或计算。它是程序的基本组成部分。
 
-It should be possible to name a function meaningfully, to specify the requirements of its argument, and clearly state the relationship between the arguments and the result. An implementation is not a specification. Try to think about what a function does as well as about how it does it.
-Functions are the most critical part in most interfaces, so see the interface rules.
+应该可以给函数一个有意义的名字，指定其参数的要求，并清楚地说明参数和结果之间的关系。实现不是规范。试着思考一个函数做什么以及它是如何做的。
+函数是大多数接口中最关键的部分，请参阅接口规则。
 
-Function rule summary:
+函数规则概述：
 
-Function definition rules:
+函数定义规则:
 
-* [F.1: "Package" meaningful operations as carefully named functions](#Rf-package)
+* [F.1: 将重要的操作“打包”为精心命名的函数](#Rf-package)
 * [F.2: A function should perform a single logical operation](#Rf-logical)
 * [F.3: Keep functions short and simple](#Rf-single)
 * [F.4: If a function might have to be evaluated at compile time, declare it `constexpr`](#Rf-constexpr)
