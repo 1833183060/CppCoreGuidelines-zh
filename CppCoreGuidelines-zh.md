@@ -1747,7 +1747,7 @@ Consider:
 
 我们可以使用一个带有不对`cin`做处理的特殊删除器的`unique_ptr`来处理这个特殊的例子,
 但是，对新手（他们很容易遇到这个问题）来说，这有点复杂；该示例是一个更普遍的问题的示例，其中我们希望考虑的静态属性(这里是所有权)很少需要在运行时处理。
-The common, most frequent, and safest examples can be handled statically, so we don't want to add cost and complexity to those.
-But we must also cope with the uncommon, less-safe, and necessarily more expensive cases.
-Such examples are discussed in [[Str15]](http://www.stroustrup.com/resource-model.pdf).
+常见的、最常见的和最安全的示例可以静态地处理，所以我们不想给它们增加成本和复杂性。
+但我们还必须应对不常见的、不安全的、也必然更昂贵的情况。
+这些例子在 [[Str15]](http://www.stroustrup.com/resource-model.pdf)中有讨论。
 
