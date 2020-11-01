@@ -1768,6 +1768,8 @@ Consider:
 
 现在，`istream` 的所有权的动态特性被封装了起来。
 可能, 在实际代码中会添加一些检查潜在错误的内容。
+
+
 ##### Enforcement
 
 * 困难, 很难决定什么样的违反规则的代码是必要的。
@@ -1785,22 +1787,22 @@ Consider:
 函数定义规则:
 
 * [F.1: 将重要的操作“打包”为精心命名的函数](#Rf-package)
-* [F.2: A function should perform a single logical operation](#Rf-logical)
-* [F.3: Keep functions short and simple](#Rf-single)
-* [F.4: If a function might have to be evaluated at compile time, declare it `constexpr`](#Rf-constexpr)
-* [F.5: If a function is very small and time-critical, declare it inline](#Rf-inline)
-* [F.6: If your function might not throw, declare it `noexcept`](#Rf-noexcept)
-* [F.7: For general use, take `T*` or `T&` arguments rather than smart pointers](#Rf-smart)
-* [F.8: Prefer pure functions](#Rf-pure)
+* [F.2: 一个函数应该仅执行一个逻辑操作](#Rf-logical)
+* [F.3: 保持函数简洁](#Rf-single)
+* [F.4: 如果某个函数可能必须在编译时求值，请将其声明为`constexpr`](#Rf-constexpr)
+* [F.5: 如果函数很小并且时间敏感，将其声明为inline](#Rf-inline)
+* [F.6:如果一个函数可以不抛出异常，将其声明为 `noexcept`](#Rf-noexcept)
+* [F.7: 一般情况下，使用`T*` 或 `T&` 作为参数而不是智能指针](#Rf-smart)
+* [F.8: 优先使用纯函数](#Rf-pure)
 * [F.9: Unused parameters should be unnamed](#Rf-unused)
 
-Parameter passing expression rules:
+参数传递表达式规则:
 
-* [F.15: Prefer simple and conventional ways of passing information](#Rf-conventional)
-* [F.16: For "in" parameters, pass cheaply-copied types by value and others by reference to `const`](#Rf-in)
-* [F.17: For "in-out" parameters, pass by reference to non-`const`](#Rf-inout)
-* [F.18: For "will-move-from" parameters, pass by `X&&` and `std::move` the parameter](#Rf-consume)
-* [F.19: For "forward" parameters, pass by `TP&&` and only `std::forward` the parameter](#Rf-forward)
+* [F.15: 优先使用简单而传统的传递信息的方式](#Rf-conventional)
+* [F.16: 对于“传入”参数, 按值传递拷贝廉价的类型，按常量引用传递其他类型](#Rf-in)
+* [F.17: 对于“传入传出”参数，使用非常量引用传递](#Rf-inout)
+* [F.18: 对于 "将从此移动" 的参数, 通过 `X&&` 和 `std::move`传递参数](#Rf-consume)
+* [F.19: 对于 "forward" 参数, 通过 `TP&&`传递，仅仅 `std::forward`这个参数](#Rf-forward)
 * [F.20: For "out" output values, prefer return values to output parameters](#Rf-out)
 * [F.21: To return multiple "out" values, prefer returning a struct or tuple](#Rf-out-multi)
 * [F.60: Prefer `T*` over `T&` when "no argument" is a valid option](#Rf-ptr-ref)
