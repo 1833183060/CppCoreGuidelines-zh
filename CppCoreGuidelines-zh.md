@@ -1803,8 +1803,8 @@ Consider:
 * [F.17: 对于“传入传出”参数，使用非常量引用传递](#Rf-inout)
 * [F.18: 对于 "将从此移动" 的参数, 通过 `X&&` 和 `std::move`传递参数](#Rf-consume)
 * [F.19: 对于 "forward" 参数, 通过 `TP&&`传递，仅仅 `std::forward`这个参数](#Rf-forward)
-* [F.20: For "out" output values, prefer return values to output parameters](#Rf-out)
-* [F.21: To return multiple "out" values, prefer returning a struct or tuple](#Rf-out-multi)
-* [F.60: Prefer `T*` over `T&` when "no argument" is a valid option](#Rf-ptr-ref)
+* [F.20: 对于 "传出"输出值, 优先使用返回值而不是返回参数](#Rf-out)
+* [F.21: 要返回多个 "传出" 值, 优先返回结构或tuple](#Rf-out-multi)
+* [F.60: 当“没有参数”是一个有效选择时，优先使用`T*` 而不是 `T&` ](#Rf-ptr-ref)
 
 
