@@ -1786,7 +1786,7 @@ Consider:
 
 函数定义规则:
 
-* [F.1: 将重要的操作“打包”为精心命名的函数](#Rf-package)
+* [F.1: 将有意义的操作“打包”为精心命名的函数](#Rf-package)
 * [F.2: 一个函数应该仅执行一个逻辑操作](#Rf-logical)
 * [F.3: 保持函数简洁](#Rf-single)
 * [F.4: 如果某个函数可能必须在编译时求值，请将其声明为`constexpr`](#Rf-constexpr)
@@ -1835,6 +1835,34 @@ Consider:
 * [F.54: 如果捕获 `this`, 则明确捕获所有变量(无默认捕获)](#Rf-this-capture)
 * [F.55: 不要使用 `va_arg` 参数](#F-varargs)
 
-Functions have strong similarities to lambdas and function objects.
+函数与lambda和函数对象有很强的相似性。
 
-**See also**: [C.lambdas: Function objects and lambdas](#SS-lambdas)
+**另请参见**: [C.lambdas: 函数对象和 lambdas](#SS-lambdas)
+
+## <a name="SS-fct-def"></a>F.def: 函数定义
+
+函数定义是一个函数声明，它还指定函数的实现，即函数体。
+
+### <a name="Rf-package"></a>F.1: 将有意义的操作“打包”为精心命名的函数
+
+##### 原因
+
+Factoring out common code makes code more readable, more likely to be reused, and limit errors from complex code.
+If something is a well-specified action, separate it out from its surrounding code and give it a name.
+
+##### Example, don't
+
+    void read_and_print(istream& is)    // read and print an int
+    {
+        int x;
+        if (is >> x)
+            cout << "the int is " << x << '\n';
+        else
+            cerr << "no int on input\n";
+    }
+
+Almost everything is wrong with `read_and_print`.
+It reads, it writes (to a fixed `ostream`), it writes error messages (to a fixed `ostream`), it handles only `int`s.
+There is nothing to reuse, logically separate operations are intermingled and local variables are in scope after the end of their logical use.
+For a tiny example, this looks OK, but if the input operation, the output operation, and the error handling had been more complicated the tangled
+mess could become hard to understand.
