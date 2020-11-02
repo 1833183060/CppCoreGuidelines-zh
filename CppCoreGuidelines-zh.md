@@ -1809,9 +1809,9 @@ Consider:
 
 参数传递语义规则:
 
-* [F.22: Use `T*` or `owner<T*>` to designate a single object](#Rf-ptr)
-* [F.23: Use a `not_null<T>` to indicate that "null" is not a valid value](#Rf-nullptr)
-* [F.24: Use a `span<T>` or a `span_p<T>` to designate a half-open sequence](#Rf-range)
-* [F.25: Use a `zstring` or a `not_null<zstring>` to designate a C-style string](#Rf-zstring)
-* [F.26: Use a `unique_ptr<T>` to transfer ownership where a pointer is needed](#Rf-unique_ptr)
-* [F.27: Use a `shared_ptr<T>` to share ownership](#Rf-shared_ptr)
+* [F.22: 使用 `T*` 或 `owner<T*>` 表示单个对象](#Rf-ptr)
+* [F.23: 使用 `not_null<T>` 表明 "null" 不是一个有效的值](#Rf-nullptr)
+* [F.24: 使用 `span<T>` 或 `span_p<T>` 表示半开序列](#Rf-range)
+* [F.25: 使用 `zstring`或 `not_null<zstring>` 表示C-风格字符串](#Rf-zstring)
+* [F.26: 使用 `unique_ptr<T>` 在需要指针的地方转移所有权](#Rf-unique_ptr)
+* [F.27: 使用 `shared_ptr<T>` 共享所有权](#Rf-shared_ptr)
