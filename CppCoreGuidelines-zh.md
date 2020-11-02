@@ -1815,3 +1815,26 @@ Consider:
 * [F.25: 使用 `zstring`或 `not_null<zstring>` 表示C-风格字符串](#Rf-zstring)
 * [F.26: 使用 `unique_ptr<T>` 在需要指针的地方转移所有权](#Rf-unique_ptr)
 * [F.27: 使用 `shared_ptr<T>` 共享所有权](#Rf-shared_ptr)
+
+<a name="Rf-value-return"></a>值返回语义规则:
+
+* [F.42: 返回 `T*` 表示一个位置 (only)](#Rf-return-ptr)
+* [F.43: 从不(直接或间接)返回本地对象的指针或引用](#Rf-dangle)
+* [F.44: Return a `T&` when copy is undesirable and "returning no object" isn't needed](#Rf-return-ref)
+* [F.45: 不要返回 `T&&`](#Rf-return-ref-ref)
+* [F.46: `int` 时 `main()`的返回类型](#Rf-main)
+* [F.47: 从赋值操作符返回 `T&`](#Rf-assignment-op)
+* [F.48: 不要 `return std::move(local)`](#Rf-return-move-local)
+
+其他函数规则:
+
+* [F.50: Use a lambda when a function won't do (to capture local variables, or to write a local function)](#Rf-capture-vs-overload)
+* [F.51: Where there is a choice, prefer default arguments over overloading](#Rf-default-args)
+* [F.52: Prefer capturing by reference in lambdas that will be used locally, including passed to algorithms](#Rf-reference-capture)
+* [F.53: Avoid capturing by reference in lambdas that will be used non-locally, including returned, stored on the heap, or passed to another thread](#Rf-value-capture)
+* [F.54: If you capture `this`, capture all variables explicitly (no default capture)](#Rf-this-capture)
+* [F.55: Don't use `va_arg` arguments](#F-varargs)
+
+Functions have strong similarities to lambdas and function objects.
+
+**See also**: [C.lambdas: Function objects and lambdas](#SS-lambdas)
