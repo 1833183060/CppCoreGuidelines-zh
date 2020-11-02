@@ -1828,12 +1828,12 @@ Consider:
 
 其他函数规则:
 
-* [F.50: Use a lambda when a function won't do (to capture local variables, or to write a local function)](#Rf-capture-vs-overload)
-* [F.51: Where there is a choice, prefer default arguments over overloading](#Rf-default-args)
-* [F.52: Prefer capturing by reference in lambdas that will be used locally, including passed to algorithms](#Rf-reference-capture)
-* [F.53: Avoid capturing by reference in lambdas that will be used non-locally, including returned, stored on the heap, or passed to another thread](#Rf-value-capture)
-* [F.54: If you capture `this`, capture all variables explicitly (no default capture)](#Rf-this-capture)
-* [F.55: Don't use `va_arg` arguments](#F-varargs)
+* [F.50: 当函数不起作用时使用lambda（捕捉局部变量，或编写局部函数）](#Rf-capture-vs-overload)
+* [F.51: 只要有可能，优先使用默认参数而不是重载](#Rf-default-args)
+* [F.52: 在lambda中优先通过引用捕获局部使用的变量，包括传递给算法的变量](#Rf-reference-capture)
+* [F.53: 在lambda中避免按引用捕获非局部变量, 包括返回的，存储在堆上的或传递给其他线程的](#Rf-value-capture)
+* [F.54: 如果捕获 `this`, 则明确捕获所有变量(无默认捕获)](#Rf-this-capture)
+* [F.55: 不要使用 `va_arg` 参数](#F-varargs)
 
 Functions have strong similarities to lambdas and function objects.
 
